@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SDV Calendar</string>
+    <string name="tab_bus">SDV Bus</string>
+    <string name="tab_A">Kíp A</string>
+    <string name="tab_B">Kíp B</string>
+    <string name="tab_C">Kíp C</string>
+</resources>
