@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.hoangtubot.sdvcalendar.Utils.BottomNavigationViewHelper
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import kotlinx.android.synthetic.main.layout_bottom_navigation.view.*
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
     fun setupBottomNavigationView() {
         bottomNavViewBar = findViewById(R.id.bottomNavViewBar)
