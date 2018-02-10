@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -36,7 +37,8 @@ class KipBactivity :AppCompatActivity() {
         setupBottomNavigationView()
         setupAdview()
         setupCalendarView()
-
+        KipBday().executeOnExecutor(Executors.newSingleThreadExecutor())
+        KipBnight().executeOnExecutor(Executors.newSingleThreadExecutor())
         PublicHolidays().executeOnExecutor(Executors.newSingleThreadExecutor())
         SamsungHolidays().executeOnExecutor(Executors.newSingleThreadExecutor())
 
@@ -65,6 +67,12 @@ class KipBactivity :AppCompatActivity() {
         calendarViewKipB = findViewById(R.id.calendarViewKipB)
         calendarViewKipB.setOnDateChangedListener({
             widget, date, selected ->  onDateListener(widget,date,selected)})
+        calendarViewKipB.setOnTitleClickListener(View.OnClickListener {
+            oneDayDecorator.setDate(CalendarDay.today().date)
+            calendarViewKipB.setSelectedDate(CalendarDay.today())
+            calendarViewKipB.invalidateDecorators()
+            calendarViewKipB.setCurrentDate(CalendarDay.today().date)
+        })
         CalendarViewHelper.setupCalendarView(calendarViewKipB)
         calendarViewKipB.addDecorators(
                 HighlightWeekendsDecorator(),
@@ -81,6 +89,100 @@ class KipBactivity :AppCompatActivity() {
         super.onBackPressed()
         val intent1 = Intent(this, MainActivity::class.java) //ACTIVITY_NUM = 0
         this.startActivity(intent1)
+    }
+    private inner class KipBday : AsyncTask<Void, Void, List<CalendarDay>>() {
+
+        override fun doInBackground(vararg voids: Void): List<CalendarDay> {
+            try {
+                Thread.sleep(2000)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            val calendar = Calendar.getInstance()
+            val kipAWorkfirstday = Workday(CalendarDay.from(2018, 0, 2), 2)
+
+            var workdaysKipA: MutableList<Workday> = mutableListOf()
+            workdaysKipA.add(kipAWorkfirstday)
+            //Khoang cach giua cac ngay di lam
+            val workdaybetweenlistA = intArrayOf(10, 12, 12, 17, 12, 12, 12, 12, 12, 15, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 12, 12, 12, 12, 12, 12, 12, 12, 12)
+            //Tong so ngay di lam 1 kip
+            val workdaybetweenlistAlong = intArrayOf(4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)
+            kipAWorkfirstday.calendarDay.copyTo(calendar)
+
+            for (i in workdaybetweenlistA.indices) {
+                calendar.add(Calendar.DATE, workdaybetweenlistA[i])
+                val kipAWorkday = Workday(CalendarDay.from(calendar), workdaybetweenlistAlong[i])
+                workdaysKipA.add(kipAWorkday)
+            }
+
+            var dates: MutableList<CalendarDay> = mutableListOf()
+            for (item in workdaysKipA) {
+                var day = item.calendarDay
+                day.copyTo(calendar)
+                for (j in 0 until item.daylong) {
+                    day = CalendarDay.from(calendar)
+                    dates.add(day)
+                    calendar.add(Calendar.DATE, 1)
+                }
+            }
+            return dates
+        }
+
+        override fun onPostExecute(calendarDays: List<CalendarDay>) {
+            super.onPostExecute(calendarDays)
+
+            if (isFinishing) {
+                return
+            }
+            calendarViewKipB.addDecorator(EventDecorator(Color.parseColor("#FF00B7F4"), calendarDays))
+        }
+    }
+
+    private inner class KipBnight : AsyncTask<Void, Void, List<CalendarDay>>() {
+
+        override fun doInBackground(vararg voids: Void): List<CalendarDay> {
+            try {
+                Thread.sleep(2000)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            val calendar = Calendar.getInstance()
+            val worknightsKipA: MutableList<Workday> = mutableListOf()
+            val kipAWorkfirstnight = Workday(CalendarDay.from(2018, 0, 6), 4)
+            worknightsKipA.add(kipAWorkfirstnight)
+            val worknightbetweenlistA = intArrayOf(12, 12, 12, 17, 12, 12, 12, 12, 15, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 12, 12, 12, 12, 12, 12, 12, 12, 12)
+            val worknightbetweenlistAlong = intArrayOf(4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3)
+            kipAWorkfirstnight.calendarDay.copyTo(calendar)
+
+            for (i in worknightbetweenlistA.indices) {
+                calendar.add(Calendar.DATE, worknightbetweenlistA[i])
+                val kipAWorknight = Workday(CalendarDay.from(calendar), worknightbetweenlistAlong[i])
+                worknightsKipA.add(kipAWorknight)
+            }
+
+            val dates: MutableList<CalendarDay> = mutableListOf()
+            for (item in worknightsKipA) {
+                var day = item.calendarDay
+                day.copyTo(calendar)
+                for (j in 0 until item.daylong) {
+                    day = CalendarDay.from(calendar)
+                    dates.add(day)
+                    calendar.add(Calendar.DATE, 1)
+                }
+            }
+            return dates
+        }
+
+        override fun onPostExecute(calendarDays: List<CalendarDay>) {
+            super.onPostExecute(calendarDays)
+
+            if (isFinishing) {
+                return
+            }
+            calendarViewKipB.addDecorator(EventDecorator(Color.DKGRAY, calendarDays))
+        }
     }
     private inner class PublicHolidays : AsyncTask<Void, Void, List<CalendarDay>>() {
 

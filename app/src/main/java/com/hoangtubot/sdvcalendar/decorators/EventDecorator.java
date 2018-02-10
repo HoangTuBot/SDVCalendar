@@ -1,5 +1,11 @@
 package com.hoangtubot.sdvcalendar.decorators;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;

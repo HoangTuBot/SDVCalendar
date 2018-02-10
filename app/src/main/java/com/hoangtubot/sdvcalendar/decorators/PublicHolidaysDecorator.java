@@ -2,33 +2,25 @@ package com.hoangtubot.sdvcalendar.decorators;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Arrays;
 import java.util.Calendar;
-
-import static java.security.AccessController.getContext;
 
 
 /**
  * Highlight Saturdays and Sundays with a background
  */
-public class HighlightWeekendsDecorator implements DayViewDecorator {
+public class PublicHolidaysDecorator implements DayViewDecorator {
 
     private final Calendar calendar = Calendar.getInstance();
 
-    public HighlightWeekendsDecorator() {
+    public PublicHolidaysDecorator() {
 
     }
 

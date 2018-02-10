@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hoangtubot.sdvcalendar.KipBactivity">
+    tools:context="com.hoangtubot.sdvcalendar.KipCactivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,16 +26,16 @@
             android:layout_below="@+id/relLayout1">
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/calendarViewKipB"
+                android:id="@+id/calendarViewKipC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adViewB"
+                android:id="@+id/adViewC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/calendarViewKipB"
+                android:layout_below="@+id/calendarViewKipC"
                 ads:adSize="SMART_BANNER"
                 ads:adUnitId="ca-app-pub-6463279426967492/5548506700"></com.google.android.gms.ads.AdView>
         </RelativeLayout>

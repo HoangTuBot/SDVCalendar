@@ -19,7 +19,6 @@ import com.hoangtubot.sdvcalendar.decorators.HighlightWeekendsDecorator
 import com.hoangtubot.sdvcalendar.decorators.MySelectorDecorator
 import android.graphics.Color.parseColor
 import com.hoangtubot.sdvcalendar.decorators.EventDecorator
-import android.support.annotation.NonNull
 import com.hoangtubot.sdvcalendar.decorators.Workday
 import android.os.AsyncTask
 import android.view.View
@@ -74,6 +73,7 @@ class KipAactivity:AppCompatActivity() {
             oneDayDecorator.setDate(CalendarDay.today().date)
             calendarViewKipA.setSelectedDate(CalendarDay.today())
             calendarViewKipA.invalidateDecorators()
+            calendarViewKipA.setCurrentDate(CalendarDay.today().date)
         })
 
         CalendarViewHelper.setupCalendarView(calendarViewKipA)
