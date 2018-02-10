@@ -34,6 +34,7 @@ object BottomNavigationViewHelper {
                 R.id.menu_bus -> {
                     if (page != 1) {
                         val intent1 = Intent(context, MainActivity::class.java) //ACTIVITY_NUM = 0
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent1)
                     }
                     else println("You're at this page")
@@ -41,6 +42,7 @@ object BottomNavigationViewHelper {
                 R.id.menu_a -> {
                     if (page != 2){
                         val intent2 = Intent(context, KipAactivity::class.java)//ACTIVITY_NUM = 1
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent2)
                     }
                     else println("You're at this page")
@@ -48,6 +50,7 @@ object BottomNavigationViewHelper {
                 R.id.menu_b -> {
                     if (page != 3) {
                         val intent3 = Intent(context, KipBactivity::class.java)//ACTIVITY_NUM = 2
+                        intent3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent3)
                     }
                     else println("You're at this page")
@@ -55,6 +58,7 @@ object BottomNavigationViewHelper {
                 R.id.menu_c -> {
                     if (page != 4) {
                         val intent4 = Intent(context, KipCactivity::class.java)//ACTIVITY_NUM = 4
+                        intent4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent4)
                     }
                     else println("You're at this page")

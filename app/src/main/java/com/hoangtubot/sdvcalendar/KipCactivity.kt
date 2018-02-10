@@ -91,24 +91,24 @@ class KipCactivity :AppCompatActivity() {
             }
 
             val calendar = Calendar.getInstance()
-            val kipAWorkfirstday = Workday(CalendarDay.from(2018, 0, 2), 2)
+            val KipCWorkfirstday = Workday(CalendarDay.from(2018, 0, 8), 4)
 
-            var workdaysKipA: MutableList<Workday> = mutableListOf()
-            workdaysKipA.add(kipAWorkfirstday)
+            var workdaysKipC: MutableList<Workday> = mutableListOf()
+            workdaysKipC.add(KipCWorkfirstday)
             //Khoang cach giua cac ngay di lam
-            val workdaybetweenlistA = intArrayOf(10, 12, 12, 17, 12, 12, 12, 12, 12, 15, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 12, 12, 12, 12, 12, 12, 12, 12, 12)
+            val workdaybetweenlistC = intArrayOf(12,12,12,17,12,12,12,12,15,12,12,12,12,12,12,12,12,12,12,13,12,12,12,12,12,12,12,12)
             //Tong so ngay di lam 1 kip
-            val workdaybetweenlistAlong = intArrayOf(4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)
-            kipAWorkfirstday.calendarDay.copyTo(calendar)
+            val workdaybetweenlistClong = intArrayOf(4,4,9,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,4,4,4,4,4,4,4,4,4)
+            KipCWorkfirstday.calendarDay.copyTo(calendar)
 
-            for (i in workdaybetweenlistA.indices) {
-                calendar.add(Calendar.DATE, workdaybetweenlistA[i])
-                val kipAWorkday = Workday(CalendarDay.from(calendar), workdaybetweenlistAlong[i])
-                workdaysKipA.add(kipAWorkday)
+            for (i in workdaybetweenlistC.indices) {
+                calendar.add(Calendar.DATE, workdaybetweenlistC[i])
+                val KipCWorkday = Workday(CalendarDay.from(calendar), workdaybetweenlistClong[i])
+                workdaysKipC.add(KipCWorkday)
             }
 
             var dates: MutableList<CalendarDay> = mutableListOf()
-            for (item in workdaysKipA) {
+            for (item in workdaysKipC) {
                 var day = item.calendarDay
                 day.copyTo(calendar)
                 for (j in 0 until item.daylong) {
@@ -140,21 +140,21 @@ class KipCactivity :AppCompatActivity() {
             }
 
             val calendar = Calendar.getInstance()
-            val worknightsKipA: MutableList<Workday> = mutableListOf()
-            val kipAWorkfirstnight = Workday(CalendarDay.from(2018, 0, 6), 4)
-            worknightsKipA.add(kipAWorkfirstnight)
-            val worknightbetweenlistA = intArrayOf(12, 12, 12, 17, 12, 12, 12, 12, 15, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 12, 12, 12, 12, 12, 12, 12, 12, 12)
-            val worknightbetweenlistAlong = intArrayOf(4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3)
-            kipAWorkfirstnight.calendarDay.copyTo(calendar)
+            val worknightsKipC: MutableList<Workday> = mutableListOf()
+            val KipCWorkfirstnight = Workday(CalendarDay.from(2018, 0, 1), 5)
+            worknightsKipC.add(KipCWorkfirstnight)
+            val worknightbetweenlistA = intArrayOf(13,12,12,17,12,12,12,12,13,14,12,12,12,12,12,12,12,12,12,13,12,12,12,12,12,12,12,12,12)
+            val worknightbetweenlistAlong = intArrayOf(4,4,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4)
+            KipCWorkfirstnight.calendarDay.copyTo(calendar)
 
             for (i in worknightbetweenlistA.indices) {
                 calendar.add(Calendar.DATE, worknightbetweenlistA[i])
-                val kipAWorknight = Workday(CalendarDay.from(calendar), worknightbetweenlistAlong[i])
-                worknightsKipA.add(kipAWorknight)
+                val KipCWorknight = Workday(CalendarDay.from(calendar), worknightbetweenlistAlong[i])
+                worknightsKipC.add(KipCWorknight)
             }
 
             val dates: MutableList<CalendarDay> = mutableListOf()
-            for (item in worknightsKipA) {
+            for (item in worknightsKipC) {
                 var day = item.calendarDay
                 day.copyTo(calendar)
                 for (j in 0 until item.daylong) {
