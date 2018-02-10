@@ -8,6 +8,11 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import org.jetbrains.annotations.Nullable
 import android.view.MenuItem
 import com.hoangtubot.sdvcalendar.*
+import com.hoangtubot.sdvcalendar.R.id.calendarViewKipA
+import com.hoangtubot.sdvcalendar.decorators.HighlightWeekendsDecorator
+import com.hoangtubot.sdvcalendar.decorators.MySelectorDecorator
+import com.hoangtubot.sdvcalendar.decorators.OneDayDecorator
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
