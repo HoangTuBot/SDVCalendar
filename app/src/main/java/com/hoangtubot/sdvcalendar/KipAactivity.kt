@@ -16,7 +16,9 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.hoangtubot.sdvcalendar.Utils.CalendarViewHelper
 import android.graphics.Color.parseColor
 import android.os.AsyncTask
+import android.util.Log
 import android.view.View
+import com.hoangtubot.sdvcalendar.Utils.AdviewHelper
 import com.hoangtubot.sdvcalendar.decorators.*
 import java.util.*
 import java.util.concurrent.Executors
@@ -27,11 +29,12 @@ class KipAactivity:AppCompatActivity() {
     var ACTIVITY_NUM: Int = 1
     lateinit var calendarViewKipA: MaterialCalendarView
     private val oneDayDecorator = OneDayDecorator()
+    private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kipa)
-
+        setupInterstitialAd()
         setupBottomNavigationView()
         setupAdview()
         setupCalendarView()
@@ -40,13 +43,30 @@ class KipAactivity:AppCompatActivity() {
         //PublicHolidays().executeOnExecutor(Executors.newSingleThreadExecutor())
         //SamsungHolidays().executeOnExecutor(Executors.newSingleThreadExecutor())
     }
+
+    private fun setupInterstitialAd(){
+        val intent1: Intent
+        toast("Setting up")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-6463279426967492/6473919021"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+            }
+            override fun onAdLoaded() {
+                toast("Ad Loaded")
+            }
+        }
+    }
+
     private fun toast (message: String, tag: String = KipAactivity::class.java.simpleName,length: Int=Toast.LENGTH_SHORT){
         Toast.makeText(this,"[$tag] $message",length).show()
     }
     private fun setupBottomNavigationView() {
         bottomNavViewBar = findViewById(R.id.bottomNavViewBar)
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavViewBar)
-        BottomNavigationViewHelper.enableNavigation(this,bottomNavViewBar,2)
+        BottomNavigationViewHelper.enableNavigation(this,bottomNavViewBar,2, mInterstitialAd)
         val menu: Menu = bottomNavViewBar.getMenu()
         val menuItem: MenuItem = menu.getItem(ACTIVITY_NUM)
         menuItem.setChecked(true)
@@ -89,6 +109,10 @@ class KipAactivity:AppCompatActivity() {
         super.onBackPressed()
         val intent1 = Intent(this, MainActivity::class.java) //ACTIVITY_NUM = 0
         this.startActivity(intent1)
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show()
+        } else {
+        }
     }
 
     private inner class KipAday : AsyncTask<Void, Void, List<CalendarDay>>() {
@@ -99,7 +123,6 @@ class KipAactivity:AppCompatActivity() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-
             val calendar = Calendar.getInstance()
             val kipAWorkfirstday = Workday(CalendarDay.from(2018, 0, 2), 2)
 
@@ -141,7 +164,6 @@ class KipAactivity:AppCompatActivity() {
     }
 
     private inner class KipAnight : AsyncTask<Void, Void, List<CalendarDay>>() {
-
         override fun doInBackground(vararg voids: Void): List<CalendarDay> {
             try {
                 Thread.sleep(2000)

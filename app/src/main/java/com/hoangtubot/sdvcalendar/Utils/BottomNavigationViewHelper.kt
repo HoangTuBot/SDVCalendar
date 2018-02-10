@@ -7,6 +7,7 @@ import android.util.Log
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import org.jetbrains.annotations.Nullable
 import android.view.MenuItem
+import com.google.android.gms.ads.InterstitialAd
 import com.hoangtubot.sdvcalendar.*
 import com.hoangtubot.sdvcalendar.R.id.calendarViewKipA
 import com.hoangtubot.sdvcalendar.decorators.HighlightWeekendsDecorator
@@ -28,7 +29,7 @@ object BottomNavigationViewHelper {
         bottomNavigationViewEx.enableItemShiftingMode(false)
         bottomNavigationViewEx.enableShiftingMode(false)
     }
-    fun enableNavigation(context: Context, view: BottomNavigationView, page: Int) {
+    fun enableNavigation(context: Context, view: BottomNavigationView, page: Int,mInterstitialAd: InterstitialAd) {
         view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_bus -> {
@@ -36,6 +37,10 @@ object BottomNavigationViewHelper {
                         val intent1 = Intent(context, MainActivity::class.java) //ACTIVITY_NUM = 0
                         intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent1)
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show()
+                        } else {
+                        }
                     }
                     else println("You're at this page")
                 }
@@ -44,6 +49,10 @@ object BottomNavigationViewHelper {
                         val intent2 = Intent(context, KipAactivity::class.java)//ACTIVITY_NUM = 1
                         intent2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent2)
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show()
+                        } else {
+                        }
                     }
                     else println("You're at this page")
                 }
@@ -52,6 +61,10 @@ object BottomNavigationViewHelper {
                         val intent3 = Intent(context, KipBactivity::class.java)//ACTIVITY_NUM = 2
                         intent3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent3)
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show()
+                        } else {
+                        }
                     }
                     else println("You're at this page")
                 }
@@ -60,6 +73,10 @@ object BottomNavigationViewHelper {
                         val intent4 = Intent(context, KipCactivity::class.java)//ACTIVITY_NUM = 4
                         intent4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         context.startActivity(intent4)
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show()
+                        } else {
+                        }
                     }
                     else println("You're at this page")
                 }

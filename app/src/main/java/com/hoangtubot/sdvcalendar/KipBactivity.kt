@@ -5,14 +5,12 @@ import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import com.hoangtubot.sdvcalendar.Utils.BottomNavigationViewHelper
 import com.hoangtubot.sdvcalendar.Utils.CalendarViewHelper
 import com.hoangtubot.sdvcalendar.Utils.CalendarViewHelper.setupCalendarView
@@ -29,16 +27,29 @@ class KipBactivity :AppCompatActivity() {
     var ACTIVITY_NUM: Int = 2
     lateinit var calendarViewKipB: MaterialCalendarView
     private val oneDayDecorator = OneDayDecorator()
+    private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kipb)
-
+        setupInterstitialAd()
         setupBottomNavigationView()
         setupAdview()
         setupCalendarView()
         KipBday().executeOnExecutor(Executors.newSingleThreadExecutor())
         KipBnight().executeOnExecutor(Executors.newSingleThreadExecutor())
+    }
+    private fun setupInterstitialAd(){
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-6463279426967492/6473919021"
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+            }
+            override fun onAdLoaded() {
+                toast("Ad Loaded")
+            }
+        }
     }
     private fun toast (message: String, tag: String = KipBactivity::class.java.simpleName,length: Int= Toast.LENGTH_SHORT){
         Toast.makeText(this,"[$tag] $message",length).show()
@@ -46,7 +57,7 @@ class KipBactivity :AppCompatActivity() {
     fun setupBottomNavigationView() {
         bottomNavViewBar = findViewById(R.id.bottomNavViewBar)
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavViewBar)
-        BottomNavigationViewHelper.enableNavigation(this,bottomNavViewBar,3)
+        BottomNavigationViewHelper.enableNavigation(this,bottomNavViewBar,3,mInterstitialAd)
         var menu: Menu = bottomNavViewBar.getMenu()
         var menuItem: MenuItem = menu.getItem(ACTIVITY_NUM)
         menuItem.setChecked(true)
@@ -84,10 +95,15 @@ class KipBactivity :AppCompatActivity() {
         oneDayDecorator.setDate(date.date)
         widget.invalidateDecorators()
     }
+
     override fun onBackPressed(){
         super.onBackPressed()
         val intent1 = Intent(this, MainActivity::class.java) //ACTIVITY_NUM = 0
         this.startActivity(intent1)
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show()
+        } else {
+        }
     }
     private inner class KipBday : AsyncTask<Void, Void, List<CalendarDay>>() {
         override fun doInBackground(vararg voids: Void): List<CalendarDay> {
